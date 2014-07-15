@@ -1,0 +1,25 @@
+{
+  "name": "server",
+  "version": "0.0.0",
+  "description": "Backend for SnappCar assignment",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Paul Milham",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.6.0",
+    "mysql": "^2.3.2",
+    "body-parser": "^1.4.3",
+    "async": "^0.9.0",
+    "jade": "^1.3.1"
+  },
+  "devDependencies": {
+    "gulp": "^3.8.6",
+    "gulp-nodemon": "^1.0.4"
+  },
+  "engines": {
+    "node": ">=0.10.0"
+  }
+}

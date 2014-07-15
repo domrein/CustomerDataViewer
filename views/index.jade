@@ -1,0 +1,37 @@
+html
+  head
+    script(src="http://cdnjs.cloudflare.com/ajax/libs/react/0.10.0/react.min.js")
+    script(src="http://cdnjs.cloudflare.com/ajax/libs/react/0.10.0/JSXTransformer.js")
+    link(rel="stylesheet", href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css")
+    script(src="http://code.jquery.com/jquery-1.10.0.min.js")
+    script(src="http://cdnjs.cloudflare.com/ajax/libs/showdown/0.3.1/showdown.min.js")
+    script(type="text/javascript").
+      var data = [
+        {author: "Pete Hunt", text: "This is one comment"},
+        {author: "Jordan Walke", text: "This is *another* comment"}
+      ];
+  body
+    div(class="container")
+      div(class="row")
+        div(id="content")
+        script(type="text/jsx", src="/components.jsx")
+        //- h3 Customers
+        //- table(class="table table-striped table-hover")
+        //-   thead
+        //-     tr
+        //-       th First Name
+        //-       th Last Name
+        //-       th Email
+        //-   tbody(id="customerTableBody")
+        //-     tr
+        //-       td 1
+        //-       td 2
+        //-       td 3
+        //-     tr
+        //-       td 1
+        //-       td 2
+        //-       td 3
+        //-     tr
+        //-       td 1
+        //-       td 2
+        //-       td 3
