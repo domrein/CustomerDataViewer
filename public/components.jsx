@@ -1,59 +1,56 @@
 /** @jsx React.DOM */
-var CommentBox = React.createClass({
+var CustomerGrid = React.createClass({
+  handleClick: function(event) {
+    // console.log(event.target);
+    // console.log(this.rowIndex);
+  },
   render: function() {
     return (
-      <div className="commentBox">
-        <h1>Comments</h1>
-        <CommentList data={this.props.data} />
-        <CommentForm />
-      </div>
+      <table onClick={this.handleClick} className="table table-striped table-hover">
+        <thead>
+          <tr>
+            <th>First Name</th>
+            <th>Last Name</th>
+            <th>Email</th>
+          </tr>
+        </thead>
+        <CustomerRows data={this.props.data} />
+      </table>
     );
   }
 });
 
-var CommentList = React.createClass({
+var CustomerRows = React.createClass({
+  handleClick: function(event) {
+    console.log(event);
+    // event.currentTarget.rowIndex (starts at 1)
+    if (this.props.data.onCustomerSelected) {
+      this.props.data.onCustomerSelected(this.props.data.customers[event.currentTarget.rowIndex - 1].id);
+    }
+    // populate customer editor with customer data
+  },
   render: function() {
-    var commentNodes = this.props.data.map(function (comment) {
+    var customerRows = this.props.data.customers.map(function(customer) {
       return (
-        <Comment author={comment.author}>
-          {comment.text}
-        </Comment>
+        <tr onClick={this.handleClick}>
+          <td>{customer.firstName}</td>
+          <td>{customer.lastName}</td>
+          <td>{customer.email}</td>
+        </tr>
+        // <CustomerRow firstName={customer.firstName}, >
+        //   {comment.text}
+        // </CustomerRow>
       );
-    });
+    }, this);
     return (
-      <div className="commentList">
-        {commentNodes}
-      </div>
-    );
-  }
-});
-
-var CommentForm = React.createClass({
-  render: function() {
-    return (
-      <div className="commentForm">
-        Hello, world! I am a CommentForm.
-      </div>
-    );
-  }
-});
-
-var converter = new Showdown.converter();
-var Comment = React.createClass({
-  render: function() {
-    var rawMarkup = converter.makeHtml(this.props.children.toString());
-    return (
-      <div className="comment">
-        <h2 className="commentAuthor">
-          {this.props.author}
-        </h2>
-        <span dangerouslySetInnerHTML={{__html: rawMarkup}} />
-      </div>
+      <tbody>
+        {customerRows}
+      </tbody>
     );
   }
 });
 
 React.renderComponent(
-  <CommentBox data={data} />,
-  document.getElementById('content')
+  <CustomerGrid data={data} />,
+  document.getElementById('customerGridContainer')
 );
