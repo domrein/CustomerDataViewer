@@ -5,6 +5,6 @@ exports.init = function(app) {
   app.post("/system/ping", validate.authLevel(0), validate.params({
   }), function(req, res) {
     console.log("/system/ping");
-    res.send("pong");
+    res.send(JSON.stringify({status: true, msg: "pong"}));
   });
 };

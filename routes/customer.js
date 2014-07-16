@@ -22,24 +22,13 @@ exports.init = function(app) {
     });
   });
 
-  app.post("/customer/details", validate.authLevel(0), validate.params({
-    userIds: ["number"]
-  }), function(req, res) {
-    customer.details(req.body.params.userIds, function(result) {
-      if (result.status)
-        res.send(JSON.stringify({status: true, users: result.users}));
-      else
-        res.send(JSON.stringify({status: false}));
-    });
-  });
-
   // convenience method for getting a single user's details
-  app.post("/customer/details_single", validate.authLevel(0), validate.params({
-    userId: "number"
+  app.post("/customer/details", validate.authLevel(0), validate.params({
+    customerId: "number"
   }), function(req, res) {
-    customer.details([req.body.params.userId], function(result) {
+    customer.details(req.body.params.userId, function(result) {
       if (result.status && result.users.length)
-        res.send(JSON.stringify({status: true, user: result.users[0]}));
+        res.send(JSON.stringify({status: true, customer: result.customer}));
       else
         res.send(JSON.stringify({status: false}));
     });

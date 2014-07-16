@@ -3,8 +3,7 @@ html
     script(src="http://cdnjs.cloudflare.com/ajax/libs/react/0.10.0/react.min.js")
     script(src="http://cdnjs.cloudflare.com/ajax/libs/react/0.10.0/JSXTransformer.js")
     link(rel="stylesheet", href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css")
-    script(src="http://code.jquery.com/jquery-1.10.0.min.js")
-    script(src="http://cdnjs.cloudflare.com/ajax/libs/showdown/0.3.1/showdown.min.js")
+    script(src="http://code.jquery.com/jquery-1.11.0.min.js")
     script(type="text/javascript").
       var data = {
         customers: [
@@ -14,7 +13,19 @@ html
         ],
         onCustomerSelected: function(customerId) {
           console.log("HERERJEREJR: " + customerId);
-          //- populate form
+          //- populate form with data from server
+          $.ajax({
+            type: "POST",
+            url: "/customer/details",
+            data: {userId: customerId},
+            success: function(data) {
+              console.log(data);
+            },
+            error: function(error) {
+              console.log(error);
+            },
+            dataType: "json"
+          });
         }
       }
   body

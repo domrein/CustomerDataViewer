@@ -17,11 +17,11 @@ exports.list = function(page, pageLength, filters, callback) {
       }
       if (!fieldName)
         return;
-      whereFilters.push(fieldName + " LIKE " + db.snappCar.escape(filter.value + "%"));
+      whereFilters.push(fieldName + " LIKE " + db.business.escape(filter.value + "%"));
     });
     whereClause = "WHERE " + whereFilters.join(" AND ");
   }
-  db.snappCar.query("SELECT id, first_name, last_name, email FROM snapp_car.customer " + whereClause + " LIMIT ?, ?", [page * pageLength, page * pageLength + pageLength], function(err, rows, fields) {
+  db.business.query("SELECT id, first_name, last_name, email FROM business.customer " + whereClause + " LIMIT ?, ?", [page * pageLength, page * pageLength + pageLength], function(err, rows, fields) {
     if (err) {
       console.log(err);
       callback({status: false});
@@ -31,15 +31,19 @@ exports.list = function(page, pageLength, filters, callback) {
   });
 };
 
-// returns all details for specified users
-exports.details = function(userIds, callback) {
-  db.snappCar.query("SELECT id, first_name, last_name, email, phone, birthdate, created FROM snapp_car.customer WHERE id IN (?)", [userIds], function(err, rows, fields) {
+// returns all details for specified user
+exports.details = function(customerId, callback) {
+  db.business.query("SELECT id, first_name, last_name, email, phone, birthdate, created FROM business.customer WHERE id IN (?)", [customerId], function(err, rows, fields) {
     if (err) {
       console.log(err);
       callback({status: false});
     }
+    else if (!rows.length) {
+      console.log("customer.details - Customer " + (customerId) + "not found");
+      callback({status: false});
+    }
     else
-      callback({status: true, users: rows});
+      callback({status: true, customer: rows[0]});
   });
 };
 
@@ -62,7 +66,7 @@ exports.update = function(users, callback) {
     if (!Object.keys(updateProps).length) // skip user if no properties were specified
       callback(null);
     else {
-      db.snappCar.query("UPDATE snapp_car.customer SET ?", [updateProps], function(err, rows, fields) {
+      db.business.query("UPDATE business.customer SET ?", [updateProps], function(err, rows, fields) {
         if (err) {
           console.log(err);
           callback(err);

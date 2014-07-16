@@ -1,0 +1,11 @@
+{
+  "port": 0,
+
+  "databases": {
+    "business": {
+      "host": "",
+      "user": "",
+      "password": ""
+    }
+  }
+}

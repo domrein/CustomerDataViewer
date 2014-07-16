@@ -3,7 +3,8 @@ var mysql = require("mysql");
 
 // connect to mysql databases
 exports.snappCar = mysql.createPool({
-  host: config.databases.snapp_car.host,
-  user: config.databases.snapp_car.user,
-  password: config.databases.snapp_car.password
+  user: config.databases.business.user,
+  password: config.databases.business.password,
+  host: config.databases.business.host,
+  port: config.databases.business.port
 });
