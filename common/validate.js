@@ -33,6 +33,7 @@ exports.userAuth = function(req, res, next) {
 };
 
 // 10 - admin
+// 1 - mod
 // 0 - guest
 // validate authorization level for each call
 exports.authLevel = function(requiredLevel) {
