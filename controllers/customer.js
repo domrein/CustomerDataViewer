@@ -27,19 +27,19 @@ exports.list = function(page, pageLength, filters, callback) {
       callback({status: false});
     }
     else
-      callback({status: true, users: rows});
+      callback({status: true, customers: rows});
   });
 };
 
 // returns all details for specified user
 exports.details = function(customerId, callback) {
-  db.business.query("SELECT id, first_name, last_name, email, phone, birthdate, created FROM business.customer WHERE id IN (?)", [customerId], function(err, rows, fields) {
+  db.business.query("SELECT id, first_name, last_name, email, phone, DATE_FORMAT(birth_date, '%Y-%m-%d') as birth_date, created FROM business.customer WHERE id IN (?)", [customerId], function(err, rows, fields) {
     if (err) {
       console.log(err);
       callback({status: false});
     }
     else if (!rows.length) {
-      console.log("customer.details - Customer " + (customerId) + "not found");
+      console.log("customer.details - Customer " + (customerId) + " not found");
       callback({status: false});
     }
     else
@@ -60,8 +60,8 @@ exports.update = function(users, callback) {
       updateProps.email = user.email;
     if (user.hasOwnProperty("phone"))
       updateProps.phone = user.phone;
-    if (user.hasOwnProperty("birthdate"))
-      updateProps.birthdate = user.birthdate;
+    if (user.hasOwnProperty("birthDate"))
+      updateProps.birth_date = user.birthDate;
 
     if (!Object.keys(updateProps).length) // skip user if no properties were specified
       callback(null);

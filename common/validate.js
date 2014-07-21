@@ -3,13 +3,13 @@ var db = require("./database.js");
 // validate auth token for every request
 exports.userAuth = function(req, res, next) {
   // skip user auth for now and just set to admin
-  req.body.username = 'snappCar';
-  req.body.authToken = 'snappCarAuthToken';
+  req.body.username = 'demo';
+  req.body.authToken = 'demoAuthToken';
   req.body.authLevel = 10;
   next();
 
   // if (req.body.username && req.body.authToken) {
-  //   db.authTokenDb.query("SELECT * FROM snappCar.tokens WHERE username=? AND authToken=?", [req.body.username, req.body.authToken], function(err, rows, fields) {
+  //   db.authTokenDb.query("SELECT * FROM business.tokens WHERE username=? AND authToken=?", [req.body.username, req.body.authToken], function(err, rows, fields) {
   //     if (err) {
   //       console.log("Error running authenticate query: " + err);
   //       res.send(500);

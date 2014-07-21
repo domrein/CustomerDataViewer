@@ -16,18 +16,19 @@ exports.init = function(app) {
     var filters = req.body.params.filters || [];
     customer.list(req.body.params.page, req.body.params.pageLength, filters, function(result) {
       if (result.status)
-        res.send(JSON.stringify({status: true, users: result.users}));
+        res.send(JSON.stringify({status: true, customers: result.customers}));
       else
         res.send(JSON.stringify({status: false}));
     });
   });
 
+  // curl -i --data '{"params": {"customerId":1}}' -H "Content-Type: application/json;charset=UTF-8" localhost:3000/customer/details
   // convenience method for getting a single user's details
   app.post("/customer/details", validate.authLevel(0), validate.params({
     customerId: "number"
   }), function(req, res) {
-    customer.details(req.body.params.userId, function(result) {
-      if (result.status && result.users.length)
+    customer.details(req.body.params.customerId, function(result) {
+      if (result.status)
         res.send(JSON.stringify({status: true, customer: result.customer}));
       else
         res.send(JSON.stringify({status: false}));
@@ -42,7 +43,7 @@ exports.init = function(app) {
       ":lastName": "string",
       ":email": "string",
       ":phone": "string",
-      ":birthdate": "string"
+      ":birthDate": "string"
     }]
   }), function(req, res) {
     customer.update(users, function(result) {
@@ -61,7 +62,7 @@ exports.init = function(app) {
       ":lastName": "string",
       ":email": "string",
       ":phone": "string",
-      ":birthdate": "string"
+      ":birthDate": "string"
     }
   }), function(req, res) {
     customer.update([user], function(result) {

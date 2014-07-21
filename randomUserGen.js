@@ -86,18 +86,18 @@ function rand(min, max, pad) {
 }
 
 function makeUser() {
-  // first_name, last_name, email, phone, birthdate
+  // first_name, last_name, email, phone, birth_date
   var user = {};
   user.firstName = firstNames[Math.floor(Math.random() * firstNames.length)];
   user.lastName = lastNames[Math.floor(Math.random() * lastNames.length)];
   user.email = user.firstName + "." + user.lastName + "@" + emails[Math.floor(Math.random() * emails.length)] + ".com";
   user.phone = rand(1, 20) + "-" + rand(0, 999, true) + "-" + rand(0, 999, true) + "-" + rand(0, 9999, true);
-  user.birthdate = rand(1920, 2000) + "-" + rand(1, 12, true) + "-" + rand(1, 28, true) + " 00:00:00";
+  user.birthDate = rand(1920, 2000) + "-" + rand(1, 12, true) + "-" + rand(1, 28, true) + " 00:00:00";
 
   return user;
 }
 
 for (var i = 0; i < 100; i ++) {
   var user = makeUser();
-  console.log("('" + user.firstName + "', '" + user.lastName + "', '" + user.email + "', '" + user.phone + "', '" + user.birthdate + "'),");
+  console.log("('" + user.firstName + "', '" + user.lastName + "', '" + user.email + "', '" + user.phone + "', '" + user.birthDate + "'),");
 }
