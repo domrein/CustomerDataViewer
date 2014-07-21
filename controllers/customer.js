@@ -47,38 +47,33 @@ exports.details = function(customerId, callback) {
   });
 };
 
-// updates specified details for specified users
-exports.update = function(users, callback) {
-  async.each(users, function(user, callback) {
-    // translate properties to db field names
-    var updateProps = {};
-    if (user.hasOwnProperty("firstName"))
-      updateProps.first_name = user.firstName;
-    if (user.hasOwnProperty("lastName"))
-      updateProps.last_name = user.lastName;
-    if (user.hasOwnProperty("email"))
-      updateProps.email = user.email;
-    if (user.hasOwnProperty("phone"))
-      updateProps.phone = user.phone;
-    if (user.hasOwnProperty("birthDate"))
-      updateProps.birth_date = user.birthDate;
+// updates customer details
+exports.update = function(customer, callback) {
+  console.log(customer);
+  // translate properties to db field names
+  var updateProps = {};
+  if (customer.hasOwnProperty("firstName"))
+    updateProps.first_name = customer.firstName;
+  if (customer.hasOwnProperty("lastName"))
+    updateProps.last_name = customer.lastName;
+  if (customer.hasOwnProperty("email"))
+    updateProps.email = customer.email;
+  if (customer.hasOwnProperty("phone"))
+    updateProps.phone = customer.phone;
+  if (customer.hasOwnProperty("birthDate"))
+    updateProps.birth_date = customer.birthDate;
+  console.log(updateProps);
 
-    if (!Object.keys(updateProps).length) // skip user if no properties were specified
-      callback(null);
-    else {
-      db.business.query("UPDATE business.customer SET ?", [updateProps], function(err, rows, fields) {
-        if (err) {
-          console.log(err);
-          callback(err);
-        }
-        else
-          callback(null);
-      });
-    }
-  }, function(err) {
-    if (err)
-      callback({status: false});
-    else
-      callback({status: true});
-  });
+  if (!Object.keys(updateProps).length) // skip user if no properties were specified
+    callback({status: true});
+  else {
+    db.business.query("UPDATE business.customer SET ? WHERE id=?", [updateProps, customer.id], function(err, rows, fields) {
+      if (err) {
+        console.log(err);
+        callback({status: false});
+      }
+      else
+        callback({status: true});
+    });
+  }
 };

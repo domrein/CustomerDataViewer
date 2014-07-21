@@ -5,20 +5,21 @@ html
     link(rel="stylesheet", href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css")
     script(src="http://code.jquery.com/jquery-1.11.0.min.js")
     script(type="text/javascript").
+      // logic for clicking on a customer row
       function onCustomerSelected(customerId) {
         console.log("HERERJEREJR: " + customerId);
         console.log({params: {customerId: customerId}});
-        //- populate form with data from server
+        // populate form with data from server
         $.ajax({
           type: "POST",
           contentType: "application/json;charset=UTF-8",
           url: "/customer/details",
           data: JSON.stringify({params: {customerId: customerId}}),
           dataType: "json",
-          //- data: "hello",
           success: function(data) {
             console.log(data);
             if (data.status) {
+              $("#idInput").val(data.customer.id);
               $("#firstNameInput").val(data.customer.first_name);
               $("#lastNameInput").val(data.customer.last_name);
               $("#emailInput").val(data.customer.email);
@@ -31,9 +32,32 @@ html
           }
         });
       }
-
-      function updateCustomer() {
-        
+      // logic for updating customer (clicking on "Update")
+      function updateCustomer(event) {
+        event.preventDefault();
+        $.ajax({
+          type: "POST",
+          contentType: "application/json;charset=UTF-8",
+          url: "/customer/update",
+          // TODO: only update properties that have changed
+          data: JSON.stringify({params: {
+            id: parseInt($("#idInput").val()),
+            firstName: $("#firstNameInput").val(),
+            lastName: $("#lastNameInput").val(),
+            email: $("#emailInput").val(),
+            phone: $("#phoneInput").val(),
+            birthDate: $("#birthDateInput").val()
+          }}),
+          dataType: "json",
+          success: function(data) {
+            console.log(data);
+            if (data.status) {
+            }
+          },
+          error: function(error) {
+            console.log(error);
+          }
+        });
       }
 
   body
@@ -42,6 +66,7 @@ html
         h3 Customers
         div(id="customerGridContainer")
         form(role="form")
+          input(type="hidden", id="idInput")
           div(class="form-group")
             label(for="firstNameInput") First Name
             input(type="text", class="form-control", id="firstNameInput")
@@ -57,7 +82,7 @@ html
           div(class="form-group")
             label(for="birthDateInput") Date of Birth
             input(type="text", class="form-control", id="birthDateInput")
-          button(type="submit", class="btn btn-default") Update
+          button(type="submit", class="btn btn-default" onclick="updateCustomer(event)") Update
         script(type="text/jsx", src="/components.jsx")
         script(type="text/jsx").
           /** @jsx React.DOM */
