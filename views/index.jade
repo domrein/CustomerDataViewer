@@ -48,6 +48,8 @@ html
           dataType: "json",
           success: function(data) {
             if (data.status) {
+              // TODO: update customer data inline instead of refetching data
+              customerGrid.updateUserList();
             }
           },
           error: function(error) {
@@ -85,7 +87,7 @@ html
         script(type="text/jsx", src="/components.jsx")
         script(type="text/jsx").
           /** @jsx React.DOM */
-          React.renderComponent(
-            <CustomerGrid onClick={onCustomerSelected}/>,
+          var customerGrid = React.renderComponent(
+            <CustomerGrid onCustomerSelected={onCustomerSelected} pageLength={10}/>,
             document.getElementById('customerGridContainer')
           );

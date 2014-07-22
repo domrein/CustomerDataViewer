@@ -16,7 +16,7 @@ exports.init = function(app) {
     var filters = req.body.params.filters || [];
     customer.list(req.body.params.page, req.body.params.pageLength, filters, function(result) {
       if (result.status)
-        res.send(JSON.stringify({status: true, customers: result.customers}));
+        res.send(JSON.stringify({status: true, customers: result.customers, numPages: result.numPages}));
       else
         res.send(JSON.stringify({status: false}));
     });

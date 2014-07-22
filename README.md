@@ -3,7 +3,7 @@ Customer Manager
 
 Example Web app that displays and edits customer data
 
-Live Demo: customermanager.paulmilham.com
+Live Demo: http://customermanager.paulmilham.com
 
 Technologies
 ==================

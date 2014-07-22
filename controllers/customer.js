@@ -21,13 +21,25 @@ exports.list = function(page, pageLength, filters, callback) {
     });
     whereClause = "WHERE " + whereFilters.join(" AND ");
   }
-  db.customer_manager.query("SELECT id, first_name, last_name, email FROM customer_manager.customer " + whereClause + "  ORDER BY last_name, first_name LIMIT ?, ?", [page * pageLength, page * pageLength + pageLength], function(err, rows, fields) {
+  db.customer_manager.query("SELECT id, first_name, last_name, email FROM customer_manager.customer " + whereClause + " ORDER BY last_name, first_name LIMIT ?, ?", [page * pageLength, pageLength], function(err, rows, fields) {
     if (err) {
       console.log(err);
       callback({status: false});
     }
-    else
-      callback({status: true, customers: rows});
+    else {
+      var customers = rows;
+      // get customer count
+      db.customer_manager.query("SELECT COUNT(*) as total FROM customer_manager.customer " + whereClause, [], function(err, rows, fields) {
+        if (err) {
+          console.log(err);
+          callback({status: false});
+        }
+        else {
+          var numPages = Math.ceil(rows[0].total / pageLength) || 1;
+          callback({status: true, customers: customers, numPages: numPages});
+        }
+      });
+    }
   });
 };
 
