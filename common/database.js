@@ -2,9 +2,9 @@ var config = require("../config.json");
 var mysql = require("mysql");
 
 // connect to mysql databases
-exports.business = mysql.createPool({
-  user: config.databases.business.user,
-  password: config.databases.business.password,
-  host: config.databases.business.host,
-  port: config.databases.business.port
+exports.customer_manager = mysql.createPool({
+  user: config.databases.customer_manager.user,
+  password: config.databases.customer_manager.password,
+  host: config.databases.customer_manager.host,
+  port: config.databases.customer_manager.port
 });

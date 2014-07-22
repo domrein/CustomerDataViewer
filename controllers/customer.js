@@ -17,11 +17,11 @@ exports.list = function(page, pageLength, filters, callback) {
       }
       if (!fieldName)
         return;
-      whereFilters.push(fieldName + " LIKE " + db.business.escape(filter.value + "%"));
+      whereFilters.push(fieldName + " LIKE " + db.customer_manager.escape(filter.value + "%"));
     });
     whereClause = "WHERE " + whereFilters.join(" AND ");
   }
-  db.business.query("SELECT id, first_name, last_name, email FROM business.customer " + whereClause + " LIMIT ?, ?", [page * pageLength, page * pageLength + pageLength], function(err, rows, fields) {
+  db.customer_manager.query("SELECT id, first_name, last_name, email FROM customer_manager.customer " + whereClause + "  ORDER BY last_name, first_name LIMIT ?, ?", [page * pageLength, page * pageLength + pageLength], function(err, rows, fields) {
     if (err) {
       console.log(err);
       callback({status: false});
@@ -33,7 +33,7 @@ exports.list = function(page, pageLength, filters, callback) {
 
 // returns all details for specified user
 exports.details = function(customerId, callback) {
-  db.business.query("SELECT id, first_name, last_name, email, phone, DATE_FORMAT(birth_date, '%Y-%m-%d') as birth_date, created FROM business.customer WHERE id IN (?)", [customerId], function(err, rows, fields) {
+  db.customer_manager.query("SELECT id, first_name, last_name, email, phone, DATE_FORMAT(birth_date, '%Y-%m-%d') as birth_date, created FROM customer_manager.customer WHERE id IN (?)", [customerId], function(err, rows, fields) {
     if (err) {
       console.log(err);
       callback({status: false});
@@ -67,7 +67,7 @@ exports.update = function(customer, callback) {
   if (!Object.keys(updateProps).length) // skip user if no properties were specified
     callback({status: true});
   else {
-    db.business.query("UPDATE business.customer SET ? WHERE id=?", [updateProps, customer.id], function(err, rows, fields) {
+    db.customer_manager.query("UPDATE customer_manager.customer SET ? WHERE id=?", [updateProps, customer.id], function(err, rows, fields) {
       if (err) {
         console.log(err);
         callback({status: false});

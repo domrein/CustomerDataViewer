@@ -1,8 +1,8 @@
 -- database scripts to setup schema
-CREATE SCHEMA `business`;
+CREATE SCHEMA `customer_manager`;
 
 -- create customer table
-CREATE TABLE `business`.`customer` (
+CREATE TABLE `customer_manager`.`customer` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `first_name` varchar(255) DEFAULT NULL,
   `last_name` varchar(45) DEFAULT NULL,
@@ -16,7 +16,7 @@ CREATE TABLE `business`.`customer` (
 
 -- customers generated using randomUserGen.js
 INSERT INTO
-	business.customer (first_name, last_name, email, phone, birth_date, created)
+	customer_manager.customer (first_name, last_name, email, phone, birth_date, created)
 VALUES
 	('paul', 'milham', 'domreinalabaster@gmail.com', '1-801-830-7971', '1984-03-08 00:00:00', NOW()),
   ('bob', 'brown', 'bob.brown@hotmail.com', '10-042-418-3961', '1977-09-28 00:00:00', NOW()),

@@ -1,8 +1,9 @@
-CustomerDataViewer
+Customer Manager
 ==================
 
 Example Web app that displays and edits customer data
-Live Demo:
+
+Live Demo: customermanager.paulmilham.com
 
 Technologies
 ==================

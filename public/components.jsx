@@ -1,7 +1,6 @@
 /** @jsx React.DOM */
 var CustomerGrid = React.createClass({
   getInitialState: function() {
-    console.log("here");
     setTimeout(function(){this.updateUserList();}.bind(this), 0);
     return {data: {customers: []}, firstNameFilter: "", lastNameFilter: "", emailFilter: ""};
   },
@@ -85,19 +84,13 @@ var CustomerGrid = React.createClass({
         <tbody>
           <tr>
             <td>
-              <div class="form-group">
-                <input type="text" value={this.state.firstNameFilter} onChange={this.handleFirstNameFilterChange} class="form-control" />
-              </div>
+              <input type="text" value={this.state.firstNameFilter} onChange={this.handleFirstNameFilterChange} className="form-control" />
             </td>
             <td>
-              <div class="form-group">
-                <input type="text" value={this.state.lastNameFilter} onChange={this.handleLastNameFilterChange} class="form-control" />
-              </div>
+              <input type="text" value={this.state.lastNameFilter} onChange={this.handleLastNameFilterChange} className="form-control" />
             </td>
             <td>
-              <div class="form-group">
-                <input type="text" value={this.state.emailFilter} onChange={this.handleEmailFilterChange} class="form-control" />
-              </div>
+              <input type="text" value={this.state.emailFilter} onChange={this.handleEmailFilterChange} className="form-control" />
             </td>
           </tr>
           {customerRows}

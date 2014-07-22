@@ -9,7 +9,7 @@ exports.userAuth = function(req, res, next) {
   next();
 
   // if (req.body.username && req.body.authToken) {
-  //   db.authTokenDb.query("SELECT * FROM business.tokens WHERE username=? AND authToken=?", [req.body.username, req.body.authToken], function(err, rows, fields) {
+  //   db.authTokenDb.query("SELECT * FROM customer_manager.tokens WHERE username=? AND authToken=?", [req.body.username, req.body.authToken], function(err, rows, fields) {
   //     if (err) {
   //       console.log("Error running authenticate query: " + err);
   //       res.send(500);

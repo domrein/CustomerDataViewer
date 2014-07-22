@@ -2,8 +2,9 @@
   "port": 3000,
 
   "databases": {
-    "business": {
+    "customer_manager": {
       "host": "",
+      "port": 3306,
       "user": "",
       "password": ""
     }
