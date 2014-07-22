@@ -1,0 +1,14 @@
+Architecture:
+The back end is loosely MVC architecture. It's broken up into routes and controllers. The routes just validate the incoming requests, then pass them off to the controllers for processing. When the controllers return, the results are rendered by the view if necessary (index.jade). The application is stateless because the model is contained within the database. The front end is a combination of React and dom/jquery. React components render according to state and any relevant state data is held within the components. I didn't want to go overboard on this and do a full blown Angular MVC app because there's only one view in the application.
+
+Back End Modules:
+mysql - for database interaction
+async - for control flow (didn't end up needing it)
+express - for routing and middleware
+jade - templating engine to make writing index view easier
+gulp - just used for nodemon to ease development (auto restart server on file change)
+
+Front End Libraries:
+React/JSX - data driven components for the customer data grid
+jquery - dom selection
+Bootstrap - for layout (fluid grid system) and to make the website look nice

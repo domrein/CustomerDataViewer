@@ -28,7 +28,7 @@ exports.list = function(page, pageLength, filters, callback) {
     }
     else {
       var customers = rows;
-      // get customer count
+      // get page count
       db.customer_manager.query("SELECT COUNT(*) as total FROM customer_manager.customer " + whereClause, [], function(err, rows, fields) {
         if (err) {
           console.log(err);

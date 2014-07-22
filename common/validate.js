@@ -47,6 +47,8 @@ exports.authLevel = function(requiredLevel) {
   };
 };
 
+// validate parameters against a paramMap
+// send failure if parameters don't match paramMap requirements
 exports.params = function(paramMap) {
   return function(req, res, next) {
     // set default params

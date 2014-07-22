@@ -1,9 +1,11 @@
 html
   head
+    //- third party libs
     script(src="http://cdnjs.cloudflare.com/ajax/libs/react/0.10.0/react.min.js")
     script(src="http://cdnjs.cloudflare.com/ajax/libs/react/0.10.0/JSXTransformer.js")
     link(rel="stylesheet", href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css")
     script(src="http://code.jquery.com/jquery-1.11.0.min.js")
+
     script(type="text/javascript").
       // logic for clicking on a customer row
       function onCustomerSelected(customerId) {
@@ -31,7 +33,7 @@ html
       }
       // logic for updating customer (clicking on "Update")
       function updateCustomer(event) {
-        event.preventDefault();
+        event.preventDefault(); // prevent form from refreshing page
         $.ajax({
           type: "POST",
           contentType: "application/json;charset=UTF-8",
@@ -60,11 +62,15 @@ html
 
   body
     div(class="container")
+      //- customer grid
       div(class="row")
         h3 Customers
         div(id="customerGridContainer")
+
       div(class="row")
         div(id="pageDivider", style="background-color:lightgray;height:3px;margin-bottom:20px;")
+
+      //- update customer controls
       div(class="row")
         form(role="form")
           input(type="hidden", id="idInput")

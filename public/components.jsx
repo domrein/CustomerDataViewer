@@ -4,8 +4,8 @@ var CustomerGrid = React.createClass({
     setTimeout(function(){this.updateUserList();}.bind(this), 0);
     return {page: 0, customers: [], firstNameFilter: "", lastNameFilter: "", emailFilter: ""};
   },
-  componentDidMount: function() {
-  },
+
+  // fetch the filtered user list from the server
   updateUserList: function() {
     var filters = [];
     if (this.state.firstNameFilter != "")
@@ -34,6 +34,8 @@ var CustomerGrid = React.createClass({
       this.props.onCustomerSelected(this.state.customers[event.currentTarget.rowIndex - 2].id);
     }
   },
+
+  // update state on filter change and reset pagination
   handleFirstNameFilterChange: function(event) {
     this.setState({page: 0, firstNameFilter: event.target.value});
   },
@@ -43,6 +45,8 @@ var CustomerGrid = React.createClass({
   handleEmailFilterChange: function(event) {
     this.setState({page: 0, emailFilter: event.target.value});
   },
+
+  // refetch customer list when filters/page have been changed
   componentDidUpdate: function(prevProps, prevState) {
     if (
       prevState.firstNameFilter != this.state.firstNameFilter ||
@@ -75,10 +79,8 @@ var CustomerGrid = React.createClass({
       this.setState({page: this.state.numPages - 1});
     }.bind(this);
     var rightClassName = (this.state.page == this.state.numPages - 1) ? "disabled" : null;
-    // start = state.page + 1 - 2
-    // if start < 1, start = 1
-    // end = start + 5
-    // if end > numPages, end = numPages
+
+    // calculate start, end page numbers
     var startPage = this.state.page + 1 - 2;
     if (startPage < 1)
       startPage = 1;
@@ -86,6 +88,7 @@ var CustomerGrid = React.createClass({
     if (endPage > this.state.numPages)
       endPage = this.state.numPages;
 
+    // generate pagination nodes
     for (var i = startPage; i <= endPage; i ++) {
       var activeClassName = null;
       var handlePageClick = function(pageNum) {
